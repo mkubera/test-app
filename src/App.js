@@ -1,9 +1,9 @@
 import React from 'react'
-import logo from './logo.svg'
+// import logo from './logo.svg'
 import './App.css'
-import Footer from './Footer'
-import UpOrDown from './UpOrDown'
-import Messenger from './Messenger'
+// import Footer from './Footer'
+// import UpOrDown from './UpOrDown'
+// import Messenger from './Messenger'
 import Doggies from './Doggies'
 
 class App extends React.Component {
