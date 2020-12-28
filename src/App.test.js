@@ -7,3 +7,9 @@ test('renders learn react link', () => {
   const linkElement = getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
+
+test('renders greeting', () => {
+  const { getAllByText } = render(<App />);
+  const greetingElements = getAllByText(/hello, josh perez/i);
+  greetingElements.forEach((el) => expect(el).toBeInTheDocument())
+});
