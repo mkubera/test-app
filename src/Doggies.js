@@ -69,6 +69,7 @@ const Doggies = ({ doggiesOpts: { order, headerTitle, doggies } }) => {
   return (
     <>
       <div>
+        <h2>Doggies</h2>
         {R.pipe(
           R.map((person) => R.inc(person.age)), // [31,21]
           R.filter((age) => R.gt(age, 20)), // [31,21]
