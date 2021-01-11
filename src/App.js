@@ -1,4 +1,5 @@
-import React from 'react'
+// import React from 'react'
+import React, { Component } from 'react'
 // import logo from './logo.svg'
 import './App.css'
 // import Footer from './Footer'
@@ -6,9 +7,11 @@ import './App.css'
 // import Messenger from './Messenger'
 import Doggies from './Doggies'
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props)
+
+    console.log('constructor')
 
     this.state = {
       doggiesOpts: {
@@ -20,27 +23,9 @@ class App extends React.Component {
         // .sort()
         // .reverse()
       },
+      chuckNorrisQuotation: '',
     }
-    // this.soc_med = [
-    //   {
-    //     id: 1,
-    //     name: 'Twitter',
-    //     url: 'https://twitter.com',
-    //     img:
-    //       'https://www.luxurydaily.com/wp-content/uploads/2014/03/Twitter_logo_blue.jpg',
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'Twitter',
-    //     url: 'https://twitter.com',
-    //     img:
-    //       'https://www.luxurydaily.com/wp-content/uploads/2014/03/Twitter_logo_blue.jpg',
-    //   },
-    // ]
-    // this.years = '2018-2020'
-    // this.cbFn = (childData) => {
-    //   this.setState({ message: childData })
-    // }
+
     this.changeDoggiesOrder = () => {
       var doggiesOpts = { ...this.state.doggiesOpts }
 
@@ -65,23 +50,32 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    console.log('componentDidMount -- must fetch here')
+
+    const chuckNorrisAPIUrl = 'https://api.chucknorris.io/jokes/random'
+    fetch(chuckNorrisAPIUrl, {
+      method: 'GET',
+      mode: 'cors',
+    })
+      .then((resp) => resp.json())
+      .then((j) => {
+        let chuckNorrisQuotation = { ...this.state.chuckNorrisQuotation }
+        chuckNorrisQuotation = j.value
+        this.setState({ chuckNorrisQuotation })
+      })
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount')
+  }
+
   render() {
     return (
       <div className="App">
+        <div>{this.state.chuckNorrisQuotation}</div>
         <Doggies doggiesOpts={this.state.doggiesOpts} />
         <button onClick={this.changeDoggiesOrder}>Change Doggies Order</button>
-        {/* <Messenger sendMsg={this.cbFn} />
-        <p>msg: {this.state.message}</p>
-        {this.state.people.map((name) => (
-          <p>Hello, {name}</p>
-        ))}
-        {this.state.data}
-
-        <Footer soc_med={this.soc_med} years={this.years} />
-        <UpOrDown isUp={true} />
-        <UpOrDown isUp={false} />
-        <UpOrDown isUp={true} />
-        <UpOrDown isUp={false} /> */}
       </div>
     )
   }
